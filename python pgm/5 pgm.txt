@@ -1,0 +1,24 @@
+import pandas as pd
+
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],
+    'Age': [25, 30, 35, 40, 28],
+    'Salary': [50000, 60000, 70000, 80000, 62000]
+}
+df = pd.DataFrame(data)
+
+print("Original DataFrame:") 
+print(df)
+
+print("\nNames of employees:") 
+print(df['Name'])
+
+print("\nEmployees older than 30:") 
+print(df[df['Age'] > 30])
+
+df['Tax'] = df['Salary'] * 0.10 
+print("\nDataFrame with Tax column added:") 
+print(df)
+
+print("\nSummary statistics:") 
+print(df.describe())
