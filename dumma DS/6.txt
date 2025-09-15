@@ -1,0 +1,41 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import train_test_split
+
+dataset = pd.read_csv("poly.csv")
+
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+print("Training Features (X_train):\n", X_train)
+print("\nTraining Labels (y_train):\n", y_train)
+
+poly_reg = PolynomialFeatures(degree=3)
+X_poly = poly_reg.fit_transform(X)
+
+lin_reg2 = LinearRegression()
+lin_reg2.fit(X_poly, y)
+
+y_pred_poly = lin_reg2.predict(poly_reg.fit_transform(X_test))
+print("\nPolynomial Regression Predictions:\n", y_pred_poly)
+
+plt.scatter(X, y, color="blue")
+plt.plot(X, lin_reg2.predict(poly_reg.fit_transform(X)), color="red")
+plt.title("Polynomial Regression Model")
+plt.xlabel("X (Feature)")
+plt.ylabel("y (Target)")
+plt.show()
+
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+
+y_pred_lin = lin_reg.predict(X_test)
+print("\nLinear Regression Predictions:\n", y_pred_lin)
+
+print("\nSlope (coefficients):", lin_reg.coef_)
+print("Intercept:", lin_reg.intercept_)

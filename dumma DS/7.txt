@@ -1,0 +1,59 @@
+from sklearn.datasets import load_wine
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report, accuracy_score
+import numpy as np
+from collections import Counter
+
+wine = load_wine()
+X = wine.data
+y = wine.target
+
+print("Features (X):\n", X[:5])
+print("Labels (y):\n", y[:5])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+y_pred = knn.predict(X_test)
+
+correct = (y_pred == y_test).sum()
+wrong = (y_pred != y_test).sum()
+total = len(y_test)
+
+print("\nEvaluation Results:")
+print("Total test samples:", total)
+print("Correct predictions:", correct)
+print("Wrong predictions:", wrong)
+print("Accuracy Score:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+X_train = np.array([
+    [160, 55],
+    [170, 65],
+    [180, 80],
+    [190, 90]
+])
+y_train = np.array([0, 0, 1, 1])
+
+def euclidean_dist(x1, x2):
+    return np.sqrt(np.sum((x1 - x2) ** 2))
+
+def knn_predict(X_train, y_train, X_test, k=3):
+    distances = [euclidean_dist(X_test, x_train) for x_train in X_train]
+    k_indices = np.argsort(distances)[:k]
+    k_nearest_labels = [y_train[i] for i in k_indices]
+    most_common = Counter(k_nearest_labels).most_common(1)
+    return most_common[0][0]
+
+X_new = np.array([185, 77])
+prediction = knn_predict(X_train, y_train, X_new, k=3)
+
+print("Predicted class for", X_new, "is:", prediction)
