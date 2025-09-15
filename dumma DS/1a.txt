@@ -1,0 +1,47 @@
+import pandas as pd
+
+data = {
+    'Name': ['Arun', 'Raj', 'Rani', 'Arjun', 'Anu'],
+    'Age': [24, 27, 22, 32, 29],
+    'City': ['Delhi', 'Pune', 'Assam', 'Nepal', 'Chennai']
+}
+
+df = pd.DataFrame(data)
+
+print("Full DataFrame:")
+print(df)
+
+print("\nAccessing the elements:")
+print(df.loc[2])  
+print(df[2:4])  
+print(df[-2:])  
+print(df[-3:])  
+
+print("\nAccess using loc (Row 2, Column 'City'):")
+print(df.loc[2, 'City'])
+
+print("\nAccess using iloc (Row 2, Column 1):")
+print(df.iloc[2, 1])
+
+df['Salary'] = [50000, 55000, 42000, 60000, 52000]
+
+print("DataFrame after adding a new column Salary:")
+print(df)
+
+new_row = {'Name': 'Avi', 'Age': 30, 'City': 'Bangalore', 'Salary': 58000}
+df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+print("\nDataFrame after adding a new row:")
+print(df)
+
+print("\nOnly 2 columns (Name & Age):")
+print(df[['Name', 'Age']])
+
+print("\nDisplay 1st & 3rd rows and 2nd & 4th columns:")
+print(df.iloc[[0, 2], [1, 3]])
+
+print("\nAfter removing 1, 3, 5 records:")
+print(df.drop([0, 2, 4]))
+
+print("\nPeople with Age > 30:")
+print(df[df['Age'] > 30])

@@ -1,0 +1,41 @@
+# Step 1: Import required libraries
+from sklearn.datasets import load_wine
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report, accuracy_score
+
+# Step 2: Load the dataset
+wine = load_wine()
+X = wine.data
+y = wine.target
+
+print("Features (X):\n", X[:5])
+print("Labels (y):\n", y[:5])
+
+# Step 3: Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Step 4: Feature scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Step 5: Build and train KNN classifier
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+# Step 6: Predictions
+y_pred = knn.predict(X_test)
+
+# Step 7: Evaluation
+correct = (y_pred == y_test).sum()
+wrong = (y_pred != y_test).sum()
+total = len(y_test)
+
+print("\nEvaluation Results:")
+print("Total test samples:", total)
+print("Correct predictions:", correct)
+print("Wrong predictions:", wrong)
+print("Accuracy Score:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
