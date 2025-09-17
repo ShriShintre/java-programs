@@ -1,0 +1,141 @@
+#1a quadratic equation
+import math  
+a = int(input("Enter value for  a: "))
+b = int(input("Enter value for b: "))
+c = int(input("Enter value for c: "))
+dis=b*b-4*a*c
+sqrt_val=math.sqrt(abs(dis))
+if dis>0:
+    print("real and different roots")
+    print((-b+sqrt_val)/(2*a))
+    print((-b-sqrt_val)/(2*a))
+elif dis==0:
+    print("real and same roots")
+    print(-b/(2*a))
+else:
+    print("complex roots")
+    print(-b/(2*a),"+i",sqrt_val)
+   
+    print(-b/(2*a),"-i",sqrt_val)
+#b.prime number
+lower = int(input("Enter lower range: "))
+upper = int(input("Enter upper range: "))
+lst = []
+print("Prime numbers between", lower, "and", upper, "are:")
+
+for num in range(lower, upper + 1):
+    if num > 1:
+        for i in range(2, num):
+            if (num % i) == 0:
+                break
+        else:
+            print(num)
+            lst.append(num)
+
+print(lst)
+
+total = 0
+for i in lst:
+    total = total + i
+
+print("Sum of all prime numbers = %d" % total)
+
+#c.sum of digits
+num=int(input("enter number: "))
+rev=0
+sum=0
+while num!=0:
+    digit=num%10
+    rev=rev*10+digit
+    sum+=num%10
+    num//=10
+print("reversed no.: ", str(rev))
+print("sum of given no.: ",sum)
+#d.evalute 1/2.........
+n = int(input("Enter number: "))
+eval = 0
+for i in range(1, n + 1):
+    eval += i / (i + 1)
+    print(i, "/", (i + 1), "+", end = ' ')
+print("\n", eval)
+
+#e.count the no.of vowels,c.....
+s = input("Enter a string: ")
+v = "aeiouAEIOU"
+d = "0123456789"
+
+count_vowel = 0
+count_consonants = 0
+count_digit = 0
+count_upper = 0
+count_lower = 0
+count_whitespace = 0
+
+for char in s:
+    if char in v:
+        count_vowel += 1
+    elif char.isalpha():
+        count_consonants += 1
+    if char in d:
+
+        count_digit += 1
+    if char.isupper():
+        count_upper += 1
+    if char.islower():
+        count_lower += 1
+    if char.isspace():
+        count_whitespace += 1
+
+print("Vowels:", count_vowel)
+print("Consonants:", count_consonants)
+print("Digits:", count_digit)
+print("Uppercase letters:", count_upper)
+print("Lowercase letters:", count_lower)
+print("Whitespace characters:", count_whitespace)
+
+#ii.a.calcutate the positive 
+def custom_sum(n):
+    result=n
+    x=2
+    print(n,end='')
+    while n-x>0:
+        result+=n-x
+        print("+(",n,"-",x,")",end='')
+        x=x+2
+    return result
+num=int(input("enter a positive numbers.: "))
+if num>0:
+    total=custom_sum(num)
+    print("\nthe total value is: ",total)
+else:
+    print("please enter a +ve integer")
+
+#(b)sum of natural numbers.
+
+def sum_natural(n):
+    total=0
+    for i in range(1,n+1):
+        total+=i
+    return total
+def avg_natural(n):
+    total=sum_natural(n)
+    return total/n
+n=int(input("enter positive integer: "))
+if n>0:
+    t_sum=sum_natural(n)
+    avg=avg_natural(n)
+    print(f"sum of first {n} natural no.{t_sum}")
+    print(f"average of first {n} natural no.{avg}")
+
+#(c) lambda functions
+#(i)adding the 2 numbers:
+add=lambda x,y:x+y
+print(add(3,4))
+
+#(ii) function and lambda function
+def cube(y):
+  return y*y*y
+n=int(input("enter a number to generate cube:"))
+g=lambda x:x*x*x
+print("in lambda function the cube is:",g(n))
+print("in normal function the cube is:",cube(n))
