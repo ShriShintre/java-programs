@@ -1,0 +1,77 @@
+#5..i..(i)count no. of words, character, lines
+f=open('f1.txt','w')
+f.write("Python is a programming language")
+f.close()
+num_line=0
+n_word=0
+n_chr=0
+f=open('f1.txt','r')
+for line in f:
+    word=line.split()
+    num_line+=1
+    n_word+=len(word)
+    n_chr=+len(line)
+print(num_line)
+print(n_word)
+print(n_chr)
+#(ii)count keyword from the soure file
+import token
+import tokenize
+import keyword
+s=open('f1.txt').readline
+c=0
+l=[]
+for i in tokenize.generate_tokens(s):
+    if i.type==token.NAME and keyword.iskeyword(i.string):
+        c+=1
+        l.append(i.string)
+print(c)
+print(l)
+#(iv)insert the contents in the specified lines
+
+f=open('f1.txt','r')
+contents=f.readlines()
+f.close()
+index=int(input("enter line number"))
+value=input("ente the contents")
+contents.insert(index,value)
+f=open('f1.txt','w')
+f.seek(0)
+contents=" ".join(contents)
+f.write(contents)
+f.close()
+f=open('f1.txt','r')
+print(f.read())
+#(v)convert the contents to uppercase
+
+with open('f1.txt','r') as base:
+    with open('f2.txt','w') as derived:
+        for line in base:
+            print(derived.write(line.upper()))
+#(vi)read n lines from the beginning and n lines fro the end
+
+file=input("enter file name")
+n=int(input("enter n values"))
+with open(file,'r') as filedata:
+    line=filedata.readlines()
+    print(line[:n])
+    print(line[-n:])
+#(vii)copy contents from one file to another file
+
+from shutil import copyfile
+
+src = input("Enter source file: ")
+des = input("Enter destination file: ")
+
+copyfile(src, des)
+print("File copied..!")
+
+# Open destination file and display contents
+c = open(des, 'r')
+print(c.read())
+c.close()
+#iii.(iii)reverse the contents of file
+with open('f1.txt','r') as file:
+    lin=file.read()
+rev=lin[::-1]
+print(rev)

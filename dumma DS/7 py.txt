@@ -1,0 +1,135 @@
+#7. manipulate data using database connectivity
+
+import mysql.connector  
+from mysql.connector import errorcode  
+import sys
+
+DB_NAME = 'TennisMatch'
+
+
+cnx = mysql.connector.connect(user='root', password='')  
+cursor = cnx.cursor()
+
+
+def create_database(cursor):  
+    try:  
+        cursor.execute(  
+            f"CREATE DATABASE {DB_NAME} DEFAULT CHARACTER SET 'utf8'")
+    except mysql.connector.Error as err:  
+        print(f"Failed creating database: {err}")  
+        exit(1)
+
+
+try:  
+    cursor.execute(f"USE {DB_NAME}")  
+except mysql.connector.Error as err:  
+    print(f"Database {DB_NAME} does not exist.")
+    if err.errno == errorcode.ER_BAD_DB_ERROR:  
+        create_database(cursor)  
+        print(f"Database {DB_NAME} created successfully.")
+        cursor.execute(f"USE {DB_NAME}")  
+    else:  
+        print(err)  
+        exit(1)
+
+
+TABLES = {}  
+TABLES['details'] = (
+    "CREATE TABLE IF NOT EXISTS details ("
+    "  pno INT(5) NOT NULL AUTO_INCREMENT,"
+    "  pname VARCHAR(14) NOT NULL,"
+    "  tourn VARCHAR(20) NOT NULL,"
+    "  year INT(4),"
+    "  PRIMARY KEY (pno)"
+    ") ENGINE=InnoDB")
+
+
+for table_name in TABLES:  
+    table_description = TABLES[table_name]  
+    try:  
+        print(f"Creating table {table_name}: ", end='')  
+        cursor.execute(table_description)  
+    except mysql.connector.Error as err:  
+        if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:  
+            print("Already exists.")  
+        else:  
+            print(err.msg)  
+    else:  
+        print("OK")
+
+cursor.close()  
+cnx.close()
+
+
+conn = mysql.connector.connect(user='root', password='', database='TennisMatch')
+
+
+def insert():  
+    cursor = conn.cursor()  
+    pname = input("Enter player name: ")  
+    tourn = input("Enter tournament name: ")  
+    year = int(input("Enter year: "))  
+    insert = "INSERT INTO details (pname, tourn, year) VALUES (%s, %s, %s)"  
+    val = (pname, tourn, year)  
+    cursor.execute(insert, val)  
+    conn.commit()  
+    print("One record inserted successfully.")  
+    cursor.close()
+
+
+def display():  
+    cursor = conn.cursor()  
+    cursor.execute("SELECT * FROM details")  
+    rows = cursor.fetchall()  
+    print("\nRecords in the table:")  
+    for row in rows:  
+        print(row)  
+    cursor.close()
+
+
+def update():  
+    cursor = conn.cursor()  
+    pno = input("Enter the player number to update: ")  
+    print("What do you want to update?\n1. Tournament\n2. Year")  
+    choice = input("Enter choice (1 or 2): ")  
+    if choice == '1':  
+        tourn = input("Enter new tournament name: ")  
+        cursor.execute("UPDATE details SET tourn = %s WHERE pno = %s", (tourn, pno))  
+    elif choice == '2':  
+        year = input("Enter new year: ")  
+        cursor.execute("UPDATE details SET year = %s WHERE pno = %s", (year, pno))  
+    else:  
+        print("Invalid choice.")  
+        cursor.close()  
+        return  
+    conn.commit()  
+    print("Record updated successfully.")  
+    cursor.close()
+
+
+def delete():  
+    cursor = conn.cursor()  
+    pno = input("Enter player number to delete: ")  
+    cursor.execute("DELETE FROM details WHERE pno = %s", (pno,))  
+    conn.commit()  
+    print("Record deleted successfully.")  
+    cursor.close()
+
+
+while True:  
+    print("\n1: Insert\n2: Display\n3: Update\n4: Delete\n5: Exit")  
+    ch = input("Enter your option: ")  
+    if ch == '1':  
+        insert()  
+    elif ch == '2':  
+        display()  
+    elif ch == '3':  
+        update()  
+    elif ch == '4':  
+        delete()  
+    elif ch == '5':  
+        print("Exiting program.")  
+        conn.close()  
+        sys.exit()  
+    else:  
+        print("Invalid input.")

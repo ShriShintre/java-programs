@@ -1,0 +1,152 @@
+#6...i. access protection
+#(i)access protection
+
+class SuperClass:
+    
+    def _init_(self, var1, var2, var3):
+        
+        self.var1 = var1
+        
+        self._var2 = var2
+       
+        self.__var3 = var3
+
+   
+    def displayPublicMembers(self):
+        print("Public data member:", self.var1)
+
+    
+    def displayProtectedMembers(self):
+        print("Protected data member:", self._var2)
+
+   
+    def __displayPrivateMembers(self):
+        print("Private data member:", self.__var3)
+
+   
+    def accessPrivateMembers(self):
+        self.__displayPrivateMembers()
+
+
+class SubClass(SuperClass):
+   
+    def _init_(self, var1, var2, var3):
+        super()._init_(var1, var2, var3)
+
+   
+    def accessProtectedMembers(self):
+        self.displayProtectedMembers()
+
+
+obj = SubClass("Python", 4, "MCA")
+
+
+obj.displayPublicMembers()
+
+
+obj.accessProtectedMembers()
+
+
+obj.accessPrivateMembers()
+
+
+print("Accessing protected member directly:", obj._var2)
+
+
+print("Accessing private member using name mangling:", obj.SuperClass_var3)
+#ii.inheritance
+
+class person:
+    def person_info(self, name, age):
+        print("Inside person class")
+        print("name:", name, "age:", age)
+
+
+class company:
+    def company_info(self, company_name, location):
+        print("Inside company class")
+        print("company name:", company_name, "location:", location)
+
+
+class employee(person, company):
+    def employee_info(self, salary, skill):
+        print("Inside employee class")
+        print("salary:", salary, "skill:", skill)
+
+
+emp = employee()
+
+
+emp.person_info("BSR", 28)
+emp.company_info("Google", "Haryana")
+emp.employee_info(12000, "ML")
+#(iii)overriding
+
+class vehicle:
+    def max_speed(self):
+        print("max speed is 100 km/hour")
+
+
+class car(vehicle):
+    
+    def max_speed(self):
+        print("max speed is 200 km/hour")
+        super().max_speed()
+
+
+car = car()
+
+
+car.max_speed()
+#(iv)operator overloading
+
+# Arithmetic operator overloading
+class Point:
+    def _init_(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def _str_(self):
+        return f"({self.x}, {self.y})"
+
+   
+    def _add_(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+    def _sub_(self, other):
+        return Point(self.x - other.x, self.y - other.y)
+
+    def _mul_(self, other):
+        return Point(self.x * other.x, self.y * other.y)
+
+    def _truediv_(self, other):
+        x = self.x / other.x if other.x != 0 else 0
+        y = self.y / other.y if other.y != 0 else 0
+        return Point(x, y)
+
+
+p1 = Point(4, 6)
+p2 = Point(2, 3)
+
+print("Addition:", p1 + p2)
+print("Subtraction:", p1 - p2)
+print("Multiplication:", p1 * p2)
+print("Division:", p1 / p2)
+
+
+#comparsion
+class Person:
+    def _init_(self, name, age):
+        self.name = name
+        self.age = age
+
+   
+    def _lt_(self, other):
+        return self.age < other.age
+
+
+person1 = Person("Alice", 20)
+person2 = Person("Bob", 25)
+
+
+print("Is person1 younger than person2?", person1 < person2)

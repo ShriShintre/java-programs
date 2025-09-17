@@ -1,0 +1,63 @@
+#4..lang to dict
+lan={"mother":"amma",
+     "father":"appa",
+     "sister":"thangi",
+     "brother":"tamma"}
+for key in lan:
+    print("key:%s,value:%s"%(key,lan[key]))
+word=input("enter thw word")
+for key,value in lan.items():
+    if key==word:
+        print(value)
+#phone book modification
+def print_menu():
+    print("1.print phone number:")
+    print("2.add phone number:")
+    print("3.remove phone number:")
+    print("4.search phone number:")
+    print("5.quit")
+    print()
+num={}
+ch=0
+while ch!=5:
+    print_menu()
+    ch=int(input("enter your choice: "))
+    if ch==1:
+        print("telephone numbes: ")
+        for x in num.keys():
+            print("Name: ",x,"\tNumber:",num[x])
+            print()
+    elif ch==2:
+        print("2.add phone number:")
+        name=input("name")
+        ph=input("number")
+        num[name]=ph
+    elif ch==3:
+        print("3.remove phone number:")
+        name=input("name: ")
+        if name in num:
+            del num[name]
+        else:
+            print(name,"was not found")
+    elif ch==4:
+        print("4.search phone number:")
+        name=input("name")
+        if name in num:
+            print("number is: ",num[name])
+    elif ch == 5:
+        print("Exiting... Goodbye!")
+    else:
+        print("Invalid choice. Please select from 1 to 5.\n")
+#country captical
+country={"india":"delhi",
+         "china":"beijang",
+         "australia":"canberia"
+        }
+while True:
+    cont=input("enter country")
+    if cont=='end':
+        break
+    if cont in country:
+        print("the capital of {} is {}".format(cont,country[cont]))
+    else:
+        print("invalid")

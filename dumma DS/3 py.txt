@@ -1,0 +1,98 @@
+#3...# Original list
+lst = [10, 20, 30, 40, 50]
+print("Original list:", lst)
+
+# 1. Extend another list
+more_numbers = [60, 70]
+lst.extend(more_numbers)
+print("After extend:", lst)
+
+# 2. List concatenation
+combined = lst + [80, 90]
+print("After concatenation:", combined)
+
+# 3. Multiply list (repetition)
+repeated = ["Hi"] * 3
+print("Repeated list:", repeated)
+
+# 4. Membership testing
+print("Is 30 in lst?", 30 in lst)
+print("Is 100 in lst?", 100 in lst)
+
+# 5. List length
+print("Length of lst:", len(lst))
+
+# 6. Min, Max, Sum
+print("Minimum:", min(lst))
+print("Maximum:", max(lst))
+print("Sum:", sum(lst))
+
+# 7. Clear the list
+copy_list = lst.copy()
+copy_list.clear()
+print("After clear():", copy_list)
+
+# 8. Nested list
+nested = [[1, 2], [3, 4], [5, 6]]
+print("Nested list:", nested)
+print("Accessing element [1][1]:", nested[1][1])  # 4
+
+# 9. Sorting (descending)
+lst.sort(reverse=True)
+print("Sorted descending:", lst)
+
+# 10. Using sorted() without changing original
+original = [9, 2, 5, 1]
+print("Original before sorted():", original)
+sorted_copy = sorted(original)
+print("Sorted copy:", sorted_copy)
+print("Original still unchanged:", original)
+
+# 11. Using enumerate
+print("\nUsing enumerate:")
+for index, value in enumerate(lst):
+    print(f"Index {index}: Value {value}")
+
+# 12. Using zip to combine lists
+names = ['Alice', 'Bob', 'Charlie']
+scores = [85, 90, 95]
+combined = list(zip(names, scores))
+print("\nZipped list (names + scores):", combined)
+
+# 13. Removing duplicates using set
+duplicates = [1, 2, 2, 3, 4, 4, 5]
+unique = list(set(duplicates))
+print("Unique elements (unordered):", unique)
+
+# 14. Reverse using slicing
+reversed_list = lst[::-1]
+print("Reversed using slicing:", reversed_list)
+#nested 
+L = [4, [6, 3, [7, 2, 5, [7, 7, 6, [4, 1, 0]], 8, 4], 9], 2]
+
+print(L[0])              #
+print(L[1])            
+print(L[2])              
+print(L[1][0])           
+print(L[1][2])           
+print(L[1][2][3][0])     
+print(L[1][2][3][3][0])
+#LIST COMPRESHENSION
+
+X = [[1,1,1],
+     [1,1,1],
+     [1,1,1]]
+
+
+Y = [[1,1,1,1],
+     [1,1,1,2],
+     [3,4,4,5]]
+
+
+result = [[sum(a*b for a,b in zip(x_row, y_col)) 
+           for y_col in zip(*Y)] 
+          for x_row in X]
+
+
+for r in result:
+    print(r)

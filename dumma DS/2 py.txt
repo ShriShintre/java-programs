@@ -1,0 +1,32 @@
+#2.......#2.string operation
+s = "hello world"
+print(s.upper())
+print(s.lower())      
+print(s.title())      
+print(s.capitalize()) 
+print(s.swapcase())
+s = "Hello123"
+print(s.isalpha())  
+print(s.isdigit())  
+print(s.isalnum())  
+print(s.islower())  
+print(s.isupper())  
+print(s.isspace())
+s = "apple,banana,grape"
+fruits = s.split(",")       
+print(" & ".join(fruits))
+#ii..string reverse
+def reverse_for_loop(s):
+    s1 = ''
+    for c in s:
+        s1 = c + s1   
+    return s1
+
+input_str = "get extensive placement assistance"
+print("Reverse string using for loop =", reverse_for_loop(input_str))
+#iii....count the no.of words
+s="Learning python step by step"
+word_count=0
+for word in s.split():
+    word_count+=1
+print("word count",word_count)

@@ -1,0 +1,32 @@
+#9...numpyyy
+# Create a NumPy array
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+print("\nOriginal array:")
+print(arr)
+
+# Shape and dimensions
+print("Shape:", arr.shape)
+print("Dimensions:", arr.ndim)
+
+# 
+print("\nTranspose of array:")
+print(arr.T)
+
+# 
+print("\nAddition (arr + 2):")
+print(arr + 2)
+
+print("\nElement-wise multiplication:")
+print(arr * 2)
+
+#
+arr2 = np.array([[1, 1], [2, 2], [3, 3]])
+result = np.dot(arr, arr2)
+print("\nMatrix multiplication result:")
+print(result)
+
+#
+print("\nMean:", np.mean(arr))
+print("Max:", np.max(arr))
+print("Min:", np.min(arr))

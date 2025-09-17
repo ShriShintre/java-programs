@@ -1,0 +1,54 @@
+#10.... Data Visualization in Python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# Sample dataset
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
+    'Age': [25, 30, 35, 40, 29],
+    'Salary': [40000, 50000, 60000, 80000, 70000],
+    'Department': ['HR', 'IT', 'Finance', 'IT', 'Finance']
+}
+df = pd.DataFrame(data)
+
+# 1. Line Plot
+plt.figure(figsize=(6,4))
+plt.plot(df['Name'], df['Salary'], marker='o', linestyle='-', color='blue')
+plt.title("Line Plot - Salary of Employees")
+plt.xlabel("Name")
+plt.ylabel("Salary")
+plt.grid(True)
+plt.show()
+
+# 2. Bar Plot
+plt.figure(figsize=(6,4))
+plt.bar(df['Name'], df['Age'], color='orange')
+plt.title("Bar Plot - Age of Employees")
+plt.xlabel("Name")
+plt.ylabel("Age")
+plt.show()
+
+# 3. Histogram
+ages = np.random.randint(20, 50, 100)
+plt.figure(figsize=(6,4))
+plt.hist(ages, bins=8, color='green', edgecolor='black')
+plt.title("Histogram - Distribution of Ages")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+plt.show()
+
+# 4. Scatter Plot
+plt.figure(figsize=(6,4))
+plt.scatter(df['Age'], df['Salary'], color='red', s=100, alpha=0.7)
+plt.title("Scatter Plot - Age vs Salary")
+plt.xlabel("Age")
+plt.ylabel("Salary")
+plt.show()
+
+# 5. Pie Chart
+plt.figure(figsize=(6,6))
+dept_counts = df['Department'].value_counts()
+plt.pie(dept_counts, labels=dept_counts.index, autopct='%1.1f%%', startangle=90)
+plt.title("Pie Chart - Department Distribution")
+plt.show()
