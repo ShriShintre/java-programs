@@ -1,0 +1,24 @@
+calc
+cd C:\xampp\htdocs\calc\calc
+
+python manage.py migrate
+
+python manage.py runserver
+
+
+database
+
+python -m venv venv
+
+
+
+pip install django
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py createsuperuser
+
+
+python manage.py runserver
